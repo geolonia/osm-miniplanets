@@ -1,19 +1,28 @@
-# duodecim
-Divisions of the globe in 12; improved version of decimundus
+# osm-miniplanets
 
-![duodecim](duodecim.jpg)
+Size-oriented subdivisions of planet.osm.pbf; customized version of [duodecim](https://github.com/un-vector-tile-toolkit/duodecim)
 
-| no. | number of z=6 modules | size of miniplanet.osm.pbf |
-|-----|-----------------------|----------------------------|
-| 0   | 128                   | 4.8GB                      |
-| 1   | 512                   | 4.8GB                      |
-| 2   | 256                   | 11GB                       |
-| 3   | 16                    | 1.5GB                      |
-| 4   | 8                     | 9.2GB                      |
-| 5   | 8                     | 8.0GB                      |
-| 6   | 96                    | 5.4GB                      |
-| 7   | 512                   | 1.9GB                      |
-| 8   | 256                   | 4.8GB                      |
-| 9   | 256                   | 6.0GB                      |
-| 10  | 1024                  | 512MB                      |
-| 11  | 1024                  | 29MB                       |
+![miniplanets](miniplanets.png)
+
+the following was generated with data from planet-220418
+
+| id | size     |
+|----|----------|
+| 00 | 6.0 GB   |
+| 01 | 5.2 GB   |
+| 02 | 6.5 GB   |
+| 03 | 5.5 GB   |
+| 04 | 1.7 GB   |
+| 05 | 5.4 GB   |
+| 06 | 3.4 GB   |
+| 07 | 4.8 GB   |
+| 08 | 2.9 GB   |
+| 09 | 5.6 GB   |
+| 10 | 2.7 GB   |
+| 11 | 390.1 MB |
+| 12 | 323.6 MB |
+| 13 | 3.6 GB   |
+| 14 | 1.2 GB   |
+| 15 | 6.0 GB   |
+| 16 | 492.5 MB |
+| 17 | 24.3 MB  |

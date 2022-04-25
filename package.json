@@ -1,20 +1,40 @@
 {
-  "name": "duodecim",
-  "version": "1.0.0",
-  "description": "Divisions of the globe in 12; improved version of decimundus",
-  "main": "index.js",
+  "name": "osm-miniplanets",
+  "version": "0.0.1",
+  "description": "Size-oriented subdivisions of planet.osm.pbf; customized version of duodecim",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hfu/duodecim.git"
+    "url": "git+https://github.com/geolonia/osm-miniplanets.git"
   },
   "keywords": [],
   "author": "",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/hfu/duodecim/issues"
+    "url": "https://github.com/geolonia/osm-miniplanets/issues"
   },
-  "homepage": "https://github.com/hfu/duodecim#readme"
+  "homepage": "https://github.com/geolonia/osm-miniplanets#readme",
+  "devDependencies": {
+    "@mapbox/tilebelt": "^1.0.2",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.2.1",
+    "@turf/boolean-contains": "^6.5.0",
+    "@types/geojson": "^7946.0.8",
+    "@types/jest": "^27.4.1",
+    "@types/mapbox__tilebelt": "^1.0.0",
+    "jest": "^27.5.1",
+    "rollup": "^2.70.2",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.3"
+  }
 }
