@@ -1,5 +1,5 @@
 {
-  "name": "osm-miniplanets",
+  "name": "@geolonia/osm-miniplanets",
   "version": "0.0.1",
   "description": "Size-oriented subdivisions of planet.osm.pbf; customized version of duodecim",
   "main": "dist/index.js",
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/geolonia/osm-miniplanets.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Geolonia (https://geolonia.com)",
   "license": "Unlicense",
   "bugs": {
     "url": "https://github.com/geolonia/osm-miniplanets/issues"
