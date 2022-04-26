@@ -49,11 +49,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@geolonia'
       - name: load dist
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: dist
-      - name: 'Publish to NPM (latest)'
-        if: "!contains(github.ref, '-pre.')"
+          path: dist/
+      - name: 'Publish to NPM'
         run: npm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
