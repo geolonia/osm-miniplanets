@@ -57,6 +57,7 @@ export function generateGeoJSON(): FeatureCollection {
       properties: {
         id,
         label: `tile id=${id}`,
+        bbox,
       },
     });
   }
