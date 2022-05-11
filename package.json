@@ -1,6 +1,6 @@
 {
   "name": "@geolonia/osm-miniplanets",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Size-oriented subdivisions of planet.osm.pbf; customized version of duodecim",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
