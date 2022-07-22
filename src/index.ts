@@ -113,3 +113,49 @@ export function tileToMiniplanetId(tile: Tile): undefined | string {
   }
   return undefined;
 }
+
+// merge tiles as much as possible to the largest tiles
+function mergeToLargestTiles(tiles: Tile[]): Tile[] {
+  const tilesAtZoomOut = tiles.map((tile) => tilebelt.getParent(tile) as Tile);
+  const out: Tile[] = [];
+  for (const tile of tilesAtZoomOut) {
+    // if this tile is already in the output, skip it
+    if (out.some((t) => t[0] === tile[0] && t[1] === tile[1] && t[2] === tile[2])) {
+      continue;
+    }
+    // if this tile appears in tilesAtZoomOut exactly 4 times, it can be merged, so we'll add it to the output
+    if (tilesAtZoomOut.filter((t) => t[0] === tile[0] && t[1] === tile[1] && t[2] === tile[2]).length === 4) {
+      out.push(tile);
+    }
+  }
+
+  // add any tiles that are not covered by the merged tiles
+  for (const tile of tiles) {
+    const thisTileAtZoomOut = tilebelt.getParent(tile) as Tile;
+    if (!out.some((t) => t[0] === thisTileAtZoomOut[0] && t[1] === thisTileAtZoomOut[1] && t[2] === thisTileAtZoomOut[2])) {
+      out.push(tile);
+    }
+  }
+
+  return out;
+}
+
+// Calculate tiles at zoom BASE_ZOOM that make up all miniplanet tiles
+export function calculateMiniplanetTiles(): Tile[][] {
+  const out: Tile[][] = [];
+  for (const bbox of SUBDIVISIONS) {
+    let tiles: Tile[] = [];
+    for (let x = bbox[0]; x <= bbox[2]; x++) {
+      for (let y = bbox[1]; y <= bbox[3]; y++) {
+        tiles.push([x, y, BASE_ZOOM]);
+      }
+    }
+    let mergedTiles = mergeToLargestTiles(tiles);
+    while (mergedTiles.length < tiles.length) {
+      tiles = mergedTiles;
+      mergedTiles = mergeToLargestTiles(tiles);
+    }
+    out.push(mergedTiles);
+  }
+  return out;
+}
