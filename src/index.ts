@@ -101,6 +101,10 @@ function calculateTileBBox(tile: Tile): BBox {
 }
 
 export function tileToMiniplanetId(tile: Tile): undefined | string {
+  if (tile[2] < BASE_ZOOM) {
+    return undefined;
+  }
+
   const tileBbox = calculateTileBBox(tile);
 
   for (const [index, bbox] of SUBDIVISIONS.entries()) {
@@ -111,6 +115,7 @@ export function tileToMiniplanetId(tile: Tile): undefined | string {
       return id;
     }
   }
+
   return undefined;
 }
 

@@ -29,4 +29,19 @@ describe('tileToMiniplanetId', () => {
       expect(generatedId).toStrictEqual(id);
     }
   });
+
+  it('returns undefined if the tile is less than the base zoom', () => {
+    const tiles: Tile[] = [
+      [0, 0, 0],
+      [0, 0, 1],
+      [1, 0, 1],
+      [0, 1, 1],
+      [1, 1, 1],
+      [0, 0, 5],
+    ];
+    for (const tile of tiles) {
+      const generatedId = tileToMiniplanetId(tile);
+      expect(generatedId).toBeUndefined();
+    }
+  });
 });
