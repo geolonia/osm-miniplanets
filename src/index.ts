@@ -1,4 +1,4 @@
-import tilebelt from "@mapbox/tilebelt";
+import * as tilebelt from "@mapbox/tilebelt";
 import type { Feature, FeatureCollection, Point } from "geojson";
 
 export const BASE_ZOOM = 6;
@@ -89,7 +89,7 @@ function calculateTileBBox(tile: Tile): BBox {
     const ZDiff = tile[2] - BASE_ZOOM;
     const tileAtBZ = [tile[0] >> ZDiff, tile[1] >> ZDiff, tile[2] - ZDiff];
     return [tileAtBZ[0], tileAtBZ[1], tileAtBZ[0]+1, tileAtBZ[1]+1];
-  } else if (tile[2] < BASE_ZOOM) {
+  } else {
     const ZDiff = BASE_ZOOM - tile[2];
     return [
       tile[0] << ZDiff,

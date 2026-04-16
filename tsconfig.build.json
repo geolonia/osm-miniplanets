@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "rootDir": ".",
+    "rootDir": "./src/",
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "es2020",
@@ -9,12 +9,11 @@
     "allowJs": true,
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "declaration": false,
-    "types": ["jest"]
+    "declaration": true,
+    "declarationDir": "./dist/"
   },
   "include": [
-    "src/**/*.ts",
-    "tests/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "./dist/",
