@@ -1,11 +1,14 @@
 {
   "name": "@geolonia/osm-miniplanets",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Size-oriented subdivisions of planet.osm.pbf; customized version of duodecim",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
   "type": "module",
-  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
     "README.md",
     "LICENSE",
@@ -31,7 +34,6 @@
   "homepage": "https://github.com/geolonia/osm-miniplanets#readme",
   "devDependencies": {
     "@mapbox/tilebelt": "^2.0.3",
-    "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@turf/boolean-contains": "^7.3.4",
     "@types/geojson": "^7946.0.8",
