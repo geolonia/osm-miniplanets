@@ -1,8 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
-
-const packageJson = require('./package.json');
+import packageJson from './package.json' with { type: 'json' };
 
 const config = {
   input: 'src/index.ts',
@@ -21,7 +20,7 @@ const config = {
   plugins: [
     resolve(),
     commonjs(),
-    typescript({ useTsconfigDeclarationDir: true }),
+    typescript({ tsconfig: './tsconfig.build.json', useTsconfigDeclarationDir: true }),
   ],
 };
 export default config;

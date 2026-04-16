@@ -1,4 +1,4 @@
-import { tileToMiniplanetId, Tile } from '../src/index';
+import { tileToMiniplanetId, generateGeoJSON, calculateMiniplanetTiles, SUBDIVISIONS, BASE_ZOOM, Tile } from '../src/index';
 
 describe('tileToMiniplanetId', () => {
   it('works', () => {
@@ -42,6 +42,65 @@ describe('tileToMiniplanetId', () => {
     for (const tile of tiles) {
       const generatedId = tileToMiniplanetId(tile);
       expect(generatedId).toBeUndefined();
+    }
+  });
+});
+
+describe('generateGeoJSON', () => {
+  it('returns a FeatureCollection with one feature per subdivision', () => {
+    const geojson = generateGeoJSON();
+    expect(geojson.type).toBe('FeatureCollection');
+    expect(geojson.features.length).toBe(SUBDIVISIONS.length);
+  });
+
+  it('each feature has correct structure and id', () => {
+    const geojson = generateGeoJSON();
+    for (const [index, feature] of geojson.features.entries()) {
+      const expectedId = index.toString().padStart(2, '0');
+      expect(feature.type).toBe('Feature');
+      expect(feature.geometry.type).toBe('Polygon');
+      expect(feature.properties?.id).toBe(expectedId);
+      expect(feature.properties?.label).toBe(`tile id=${expectedId}`);
+      expect(feature.properties?.bbox).toHaveLength(4);
+
+      // Polygon should be a closed ring with 5 coordinates
+      if (feature.geometry.type === 'Polygon') {
+        const ring = feature.geometry.coordinates[0];
+        expect(ring).toHaveLength(5);
+        expect(ring[0]).toStrictEqual(ring[4]);
+      }
+    }
+  });
+});
+
+describe('calculateMiniplanetTiles', () => {
+  it('returns one tile array per subdivision', () => {
+    const tiles = calculateMiniplanetTiles();
+    expect(tiles.length).toBe(SUBDIVISIONS.length);
+  });
+
+  it('merged tiles have zoom level <= BASE_ZOOM', () => {
+    const tiles = calculateMiniplanetTiles();
+    for (const tileset of tiles) {
+      for (const tile of tileset) {
+        expect(tile[2]).toBeLessThanOrEqual(BASE_ZOOM);
+      }
+    }
+  });
+
+  it('merged tiles cover all original tiles for each subdivision', () => {
+    const allTiles = calculateMiniplanetTiles();
+    for (const [i, bbox] of SUBDIVISIONS.entries()) {
+      // Count original tiles at BASE_ZOOM
+      const originalCount = (bbox[2] - bbox[0] + 1) * (bbox[3] - bbox[1] + 1);
+
+      // Count tiles covered by merged result (expand each tile back to BASE_ZOOM)
+      let mergedCount = 0;
+      for (const tile of allTiles[i]) {
+        const zDiff = BASE_ZOOM - tile[2];
+        mergedCount += (1 << zDiff) * (1 << zDiff);
+      }
+      expect(mergedCount).toBe(originalCount);
     }
   });
 });
