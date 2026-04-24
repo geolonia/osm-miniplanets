@@ -103,4 +103,23 @@ describe('calculateMiniplanetTiles', () => {
       expect(mergedCount).toBe(originalCount);
     }
   });
+
+  it('every returned tile maps back to its miniplanet id via tileToMiniplanetId', () => {
+    const perMiniplanet = calculateMiniplanetTiles();
+    for (const [index, tiles] of perMiniplanet.entries()) {
+      const expectedId = index.toString().padStart(2, '0');
+      for (const tile of tiles) {
+        const zDiff = BASE_ZOOM - tile[2];
+        const size = 1 << zDiff;
+        const xStart = tile[0] << zDiff;
+        const yStart = tile[1] << zDiff;
+        for (let dx = 0; dx < size; dx++) {
+          for (let dy = 0; dy < size; dy++) {
+            const child: Tile = [xStart + dx, yStart + dy, BASE_ZOOM];
+            expect(tileToMiniplanetId(child)).toBe(expectedId);
+          }
+        }
+      }
+    }
+  });
 });
